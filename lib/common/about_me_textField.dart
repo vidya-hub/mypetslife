@@ -11,7 +11,6 @@ Widget aboutMeTextField({TextEditingController controller, String header}) {
           header,
           style: TextStyle(fontWeight: FontWeight.w700, color: Colors.grey),
         ),
-
         Padding(
           padding: const EdgeInsets.only(right: 18),
           child: TextField(

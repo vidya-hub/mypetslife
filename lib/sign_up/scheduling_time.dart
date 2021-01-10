@@ -24,16 +24,21 @@ class _ScheduledTimeScreenState extends State<ScheduledTimeScreen> {
     });
   }
 
-  Future gettheJsonData() async {
-    var userdata;
-    ApiService().getTasks(userid).then((response) {
-      setState(() {
-        userdata = response;
-      });
-    });
-    // print(getJson);
-    return userdata;
-    // });
+  // Future gettheJsonData() async {
+  //   var userdata;
+  //   ApiService().getTasks(userid).then((response) {
+  //     setState(() {
+  //       userdata = response;
+  //     });
+  //   });
+  //   // print(getJson);
+  //   return userdata;
+  //   // });
+  // }
+  String getTimeString(int value) {
+    final int hour = value ~/ 60;
+    final int minutes = value % 60;
+    return '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
   }
 
   @override
@@ -43,6 +48,27 @@ class _ScheduledTimeScreenState extends State<ScheduledTimeScreen> {
     return Scaffold(
       backgroundColor: Color(0xffebebeb),
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Center(
+                child: GestureDetector(
+              onTap: () {
+                // initState();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ScheduledTimeScreen(),
+                    ));
+              },
+              child: Icon(
+                Icons.refresh_rounded,
+                color: Colors.black,
+                size: 30,
+              ),
+            )),
+          )
+        ],
         elevation: 0,
         backgroundColor: Color(0xffebebeb),
         title: Text(
@@ -61,31 +87,48 @@ class _ScheduledTimeScreenState extends State<ScheduledTimeScreen> {
                 List jsondata = snapshot.data;
 
                 return Expanded(
-                  child: ListView.builder(
-                    itemCount: jsondata.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var dtServer = DateTime.fromMillisecondsSinceEpoch(
-                          jsondata[index]["timeArray"][0]);
+                  child: jsondata.length == 0
+                      ? Center(
+                          child: Container(
+                              child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Nothing",
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        )))
+                      : ListView.builder(
+                          itemCount: jsondata.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var dtServer = DateTime.fromMillisecondsSinceEpoch(
+                                jsondata[index]["timeArray"][0]);
 
-                      final diffmn =
-                          DateTime.now().difference(dtServer).inMinutes;
-                      print(diffmn);
-                      return jsondata[index]["taskType"] == "walk"
-                          ? walkTimeStack(
-                              walkImage,
-                              jsondata[index]["timeArray"].length,
-                              diffmn.toString())
-                          : feedTimeStack(
-                              eatImage,
-                              jsondata[index]["timeArray"].length,
-                              diffmn.toString());
-                    },
-                  ),
+                            final diffmn =
+                                DateTime.now().difference(dtServer).inMinutes;
+                            print(diffmn);
+                            return jsondata[index]["taskType"] == "walk"
+                                ? walkTimeStack(
+                                    walkImage,
+                                    jsondata[index]["timeArray"].length,
+                                    getTimeString(diffmn))
+                                : feedTimeStack(
+                                    eatImage,
+                                    jsondata[index]["timeArray"].length,
+                                    getTimeString(diffmn));
+                          },
+                        ),
                 );
 
                 //  walkTimeStack(walkImage, 1);
               } else {
-                return Container(child: Text("nothing"));
+                return Center(child: CircularProgressIndicator());
               }
             },
           ),

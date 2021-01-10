@@ -1,29 +1,11 @@
-import 'package:contacts_service/contacts_service.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pets/invite/invite_screen.dart';
-import 'package:pets/sign_up/about_your_pet.dart';
-import 'package:pets/sign_up/otp_screen.dart';
-import 'package:pets/sign_up/pet_details_last.dart';
-import 'package:pets/sign_up/pet_type.dart';
-import 'package:pets/sign_up/select_breed.dart';
+
 import 'package:table_calendar/table_calendar.dart';
-import 'common/bottom_nav.dart';
-import 'intro_screens/intro_screen1.dart';
-import 'intro_screens/intro_screen2.dart';
-import 'intro_screens/intro_screen3.dart';
-import 'intro_screens/intro_screen4.dart';
-import 'intro_screens/intro_screen5.dart';
+
 import 'intro_screens/page_controller_screen.dart';
-import 'sign_up/about_you.dart';
-import 'sign_up/scheduling_time.dart';
-import 'sign_up/sign_up_screen.dart';
-import 'package:pets/DataModel/breed_model.dart';
-import 'package:pets/add_scheduling_type/select_scheduling_type.dart';
-import 'package:pets/add_scheduling_type/add_meals/add_meals.dart';
+
 // import 'file:///D:/pets/pets/lib/add_scheduling_type/calender.dart';
 
 // Example holidays

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:pets/Service/api_service.dart';
 import 'package:pets/common/about_me_textField.dart';
 import 'package:pets/sign_up/welcome_dialog.dart';
@@ -79,8 +80,39 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
               ),
             ),
             aboutMeTextField(controller: _breedController, header: "Breed"),
-            aboutMeTextField(
-                controller: _birthController, header: "Birth Date"),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, top: 27),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Birth Date",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700, color: Colors.grey),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 18),
+                    child: FlatButton(
+                        onPressed: () {
+                          DatePicker.showDateTimePicker(context,
+                              showTitleActions: true, onConfirm: (date) {
+                            // setState(() {
+                            //   timeStamps[index] = date.toString();
+                            // });
+                            // print(date.toUtc().millisecondsSinceEpoch);
+                            // timevalues.add(date.toUtc().millisecondsSinceEpoch);
+                          }, currentTime: DateTime.now());
+                        },
+                        child: Text(
+                          '',
+                          style: TextStyle(color: Colors.blue),
+                        )),
+                  )
+                ],
+              ),
+            ),
+            // aboutMeTextField(
+            //     controller: _birthController, header: "Birth Date"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

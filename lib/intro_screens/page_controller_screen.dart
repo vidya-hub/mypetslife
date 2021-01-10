@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pets/Service/useridStore.dart';
 
 import 'package:pets/intro_screens/intro_screen1.dart';
 import 'package:pets/intro_screens/intro_screen2.dart';
@@ -43,29 +44,61 @@ class _PageViewerScreenState extends State<PageViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView(
-              controller: controller,
-              onPageChanged: (int i) {
-                setState(() {
-                  current = i;
-                  print(current);
-                });
-              },
-              children: [
-                IntroScreen1(),
-                IntroScreen2(),
-                IntroScreen3(),
-                IntroScreen4(),
-                IntroScreen5(),
-                SignUpScreen()
-              ],
+      body: WillPopScope(
+        onWillPop: _onBackPressed,
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                controller: controller,
+                onPageChanged: (int i) {
+                  setState(() {
+                    current = i;
+                    print(current);
+                  });
+                },
+                children: [
+                  IntroScreen1(),
+                  IntroScreen2(),
+                  IntroScreen3(),
+                  IntroScreen4(),
+                  IntroScreen5(),
+                  SignUpScreen()
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  Future<bool> _onBackPressed() {
+    return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Are you sure?'),
+              content: Text('Do you want to exit an App'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                FlatButton(
+                  child: Text('Yes'),
+                  onPressed: () {
+                    SharedPref().remove("userjsondata");
+                    SharedPref().remove("userData");
+                    Navigator.of(context).pop(true);
+                  },
+                )
+              ],
+            );
+          },
+        ) ??
+        false;
   }
 }

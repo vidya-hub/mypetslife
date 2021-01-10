@@ -30,9 +30,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget> _children = [
     InviteScreen(),
     ScheduledTimeScreen(),
-    SelectSchedulingType(
-        // userdata: userData,
-        ),
+    // SelectSchedulingType(
+    //     // userdata: userData,
+    //     ),
     Text("Family"),
     Text("Profile"),
   ];

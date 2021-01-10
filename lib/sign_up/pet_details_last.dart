@@ -34,6 +34,7 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
 
   String unitType = 'KG';
   String sexType = 'Male';
+  String dobtext = "Click here to select Date of Birth";
 
   @override
   Widget build(BuildContext context) {
@@ -94,18 +95,18 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                     padding: const EdgeInsets.only(right: 18),
                     child: FlatButton(
                         onPressed: () {
-                          DatePicker.showDateTimePicker(context,
+                          DatePicker.showDatePicker(context,
                               showTitleActions: true, onConfirm: (date) {
-                            // setState(() {
-                            //   timeStamps[index] = date.toString();
-                            // });
+                            setState(() {
+                              dobtext = date.toString();
+                            });
                             // print(date.toUtc().millisecondsSinceEpoch);
                             // timevalues.add(date.toUtc().millisecondsSinceEpoch);
                           }, currentTime: DateTime.now());
                         },
                         child: Text(
-                          '',
-                          style: TextStyle(color: Colors.blue),
+                          dobtext,
+                          style: TextStyle(color: Colors.black),
                         )),
                   )
                 ],

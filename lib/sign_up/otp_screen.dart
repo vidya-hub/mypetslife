@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:pets/Service/api_service.dart';
@@ -20,6 +21,48 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  String _homeScreenText = "Waiting for token...";
+  String _messageText = "Waiting for message...";
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+    // _firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     setState(() {
+    //       _messageText = "Push Messaging message: $message";
+    //     });
+    //     print("onMessage: $message");
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     setState(() {
+    //       _messageText = "Push Messaging message: $message";
+    //     });
+    //     print("onLaunch: $message");
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     setState(() {
+    //       _messageText = "Push Messaging message: $message";
+    //     });
+    //     print("onResume: $message");
+    //   },
+    // );
+    // _firebaseMessaging.requestNotificationPermissions(
+    //     const IosNotificationSettings(sound: true, badge: true, alert: true));
+    // _firebaseMessaging.onIosSettingsRegistered
+    //     .listen((IosNotificationSettings settings) {
+    //   print("Settings registered: $settings");
+    // });
+    // _firebaseMessaging.getToken().then((String token) {
+    //   assert(token != null);
+    //   setState(() {
+    //     _homeScreenText = "Push Messaging token: $token";
+    //   });
+    //   print(_homeScreenText);
+    // });
+  }
+
   Timer _timer;
   int _start = 60;
   bool isTimeOver = false;
@@ -47,11 +90,11 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 
-  @override
-  void initState() {
-    startTimer();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   startTimer();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

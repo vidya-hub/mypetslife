@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: null
   table_calendar: ^2.3.3
   url_launcher: ^5.7.10
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:
